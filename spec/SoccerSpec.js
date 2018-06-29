@@ -7,11 +7,11 @@ Tarantulas 3, Snakes 1
 Lions 4, Grouches 0
 `;
 
-var expectedOutput = `
-1.) Tarantulas, 6 pts
+var expectedOutput = 
+`1.) Tarantulas, 6 pts
 2.) Lions, 5 pts
-3.) Snakes, 1 pt
 3.) FC Awesome, 1 pt
+3.) Snakes, 1 pt
 5.) Grouches, 0 pts`;
 
 describe('soccerSuite', function() {
@@ -84,7 +84,8 @@ describe('soccerSuite', function() {
 	});
 
 	it('should list teams and scores in descending order, if there is a tie, sort into alphabetical order and skip the next number on the list', function() {
-		var sortedResults = [ [ 'Tarantulas ', 6 ],
+		var sortedResults = 
+		[ [ 'Tarantulas ', 6 ],
 		  [ 'Lions ', 5 ],
 		  [ 'Snakes ', 1 ],
 		  [ 'FC Awesome ', 1 ],

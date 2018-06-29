@@ -117,12 +117,12 @@ var SoccerLeague = function() {
 	        if (output[i].charAt(4) > output[i+1].charAt(4)) {
 	          let temp = '';
 	          temp = output[i];
-	          console.log(temp)
 	          output[i] = output[i+1];
 	          output[i+1] = temp;
 	        }
 	      }
 	    };
+	    output = output.join('\n')
 		return output;
 	};
 };
