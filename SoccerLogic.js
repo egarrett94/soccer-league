@@ -99,18 +99,30 @@ var SoccerLeague = function() {
 			if(accumulator.length === 0) {
 		  	accumulator.push({rank: 0, team: element[0], score: element[1]});
 		 } else {
-		  	const lastElem = accumulator[accumulator.length - 1],
-		    	nextRank = (lastElem.score == element[1]) ? lastElem.rank : accumulator.length;
+		  	const lastElem = accumulator[accumulator.length - 1]; 
+		    const nextRank = (lastElem.score == element[1]) ? lastElem.rank : accumulator.length;
 		  	accumulator.push({rank: nextRank, team: element[0], score: element[1]});
 		  }
 	  	return accumulator;
 		}, []);
-		var output = '';
+		var output = [];
 
 		map.forEach((elem, i) => {
 			const line = elem.rank+1 + ".) " + elem.team.slice(0, -1) + ", " + elem.score + ((elem.score !== 1) ? " pts" : " pt") ;
-			output = output + '\n' + line;
+			output.push(line);
 		});
+
+		for (var i = 0; i < output.length-1; i++) {
+	      if (output[i].charAt(0) === output[i+1].charAt(0)) {
+	        if (output[i].charAt(4) > output[i+1].charAt(4)) {
+	          let temp = '';
+	          temp = output[i];
+	          console.log(temp)
+	          output[i] = output[i+1];
+	          output[i+1] = temp;
+	        }
+	      }
+	    };
 		return output;
 	};
 };
