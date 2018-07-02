@@ -108,7 +108,7 @@ var SoccerLeague = function() {
 		var output = [];
 
 		map.forEach((elem, i) => {
-			const line = elem.rank+1 + ".) " + elem.team.slice(0, -1) + ", " + elem.score + ((elem.score !== 1) ? " pts" : " pt") ;
+			const line = elem.rank+1 + ". " + elem.team.slice(0, -1) + ", " + elem.score + ((elem.score !== 1) ? " pts" : " pt") ;
 			output.push(line);
 		});
 
