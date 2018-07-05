@@ -106,15 +106,18 @@ var SoccerLeague = function() {
 	  	return accumulator;
 		}, []);
 		var output = [];
+		console.log("This is what's given after the reduce function", map);
 
 		map.forEach((elem, i) => {
 			const line = elem.rank+1 + ". " + elem.team.slice(0, -1) + ", " + elem.score + ((elem.score !== 1) ? " pts" : " pt") ;
 			output.push(line);
 		});
 
+		console.log('This is the output pre-alphabetization: ', output);
+
 		for (var i = 0; i < output.length-1; i++) {
 	      if (output[i].charAt(0) === output[i+1].charAt(0)) {
-	        if (output[i].charAt(4) > output[i+1].charAt(4)) {
+	        if (output[i].charAt(3) > output[i+1].charAt(3)) {
 	          let temp = '';
 	          temp = output[i];
 	          output[i] = output[i+1];
@@ -123,6 +126,7 @@ var SoccerLeague = function() {
 	      }
 	    };
 	    output = output.join('\n')
+	    console.log('This is post-alphabetization: ', output)
 		return output;
 	};
 };
