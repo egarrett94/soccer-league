@@ -3,6 +3,18 @@
 We want you to create a command-line application that will calculate the
 ranking table for a soccer league.
 
+### Goal Differential Exercise
+
+The goal of this exercise is to add goal differential as the primary tie-breaker for league ranking.
+
+Goal differential is defined as:
+(sum of total goals-for) - (sum of total goals against)
+
+See the corresponding sample input and expected output files to see the tie broken based on the given input.
+
+Tf goal differential is still equal, then alpha-sorting can remain as the secondary tie breaker.
+
+
 ### Input/output
 
 The input and output will be text. Your solution should parse the provided
@@ -67,4 +79,4 @@ To use the program itself, enter this in the command prompt/terminal:
 $ node SoccerBuilder.js
 
 and follow the prompts. Be sure to enter the input file's 
-path as it is in relation to SoccerBuilder.js. 
+path as it is in relation to SoccerBuilder.js.
