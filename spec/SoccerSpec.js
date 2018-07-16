@@ -76,8 +76,8 @@ describe('soccerSuite', function() {
 		  'FC Awesome ': {'score': 1, 'gd': -1},
 		  'Grouches ': {'score': 0, 'gd': -4} }
 
-		expect(soccer.sortingScores(resultsObject)).toEqual([ [ 'Lions ', 5, 4 ],
-		  [ 'Tarantulas ', 6, 3 ],
+		expect(soccer.sortingScores(resultsObject)).toEqual([ [ 'Tarantulas ', 6, 3 ],
+		  [ 'Lions ', 5, 4 ],
 		  [ 'FC Awesome ', 1, -1 ],
 		  [ 'Snakes ', 1, -2 ],
 		  [ 'Grouches ', 0, -4 ] ]);
@@ -85,8 +85,8 @@ describe('soccerSuite', function() {
 
 	it('should list teams and scores in descending order, if there is a tie, sort into alphabetical order and skip the next number on the list', function() {
 		var sortedResults = 
-		[ [ 'Lions ', 5, 4 ],
-		  [ 'Tarantulas ', 6, 3 ],
+		[ [ 'Tarantulas ', 6, 3 ],
+		  [ 'Lions ', 5, 4 ],
 		  [ 'FC Awesome ', 1, -1 ],
 		  [ 'Snakes ', 1, -2 ],
 		  [ 'Grouches ', 0, -4 ] ];

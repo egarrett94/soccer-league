@@ -76,13 +76,12 @@ var SoccerLeague = function() {
 		};
 
 		sortable.sort(function(a, b) {
-		    return b[1] - a[1];
-		});
-	
-		sortable.sort(function(a, b) {
 		    return b[2] - a[2];
 		});
-		console.log(sortable);
+
+		sortable.sort(function(a, b) {
+		    return b[1] - a[1];
+		});
 		return sortable;
 	};
 
