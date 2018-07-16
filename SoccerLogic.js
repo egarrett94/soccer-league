@@ -39,40 +39,31 @@ var SoccerLeague = function() {
 	// compares the opposing teams in the arrays returned from createTeams() 
 	// and distributes points accordingly
 	this.distributeScores = function(teamList1, teamList2) {
-		for (var i = 0; i < teamList1.length; i++) {
-			if (teamList1[i].score === teamList2[i].score) {
-				// add 1 point to each team's score
-				if (results[teamList1[i].team]) {
-					results[teamList1[i].team] += 1;
-				} else {
-					results[teamList1[i].team] = 1;
-				};
-				if (results[teamList2[i].team]) {
-					results[teamList2[i].team] += 1;
-				} else {
-					results[teamList2[i].team] = 1;
-				};
-			} else if (teamList1[i].score > teamList2[i].score) {
-				// add 3 points to the winning team's score, none to the losing
-				if (results[teamList1[i].team]) {
-					results[teamList1[i].team] += 3;
-				} else {
-					results[teamList1[i].team] = 3;
-				};
-				if (!results[teamList2[i].team]) {
-					results[teamList2[i].team] = 0; 
-				};
-			} else if (teamList1[i].score < teamList2[i].score) {
-				// add 3 points to the winning team's score, none to the losing
-				if (results[teamList2[i].team]) {
-					results[teamList2[i].team] += 3;
-				} else {
-					results[teamList2[i].team] = 3;
-				};
-				if (!results[teamList1[i].team]) {
-					results[teamList1[i].team] = 0; 
-				};
-			};
+		
+		teamList1.forEach(function(team) {
+			results[team.team] = {'score': 0, 'gd': 0};
+		});
+		teamList2.forEach(function(team) {
+			results[team.team] = {'score': 0, 'gd': 0};
+		});
+
+		for (var i = 0; i < teamList1.length; i++ ) {
+			var teamOne = teamList1[i];
+			var teamTwo = teamList2[i];
+
+			results[teamOne.team].gd += teamOne.score - teamTwo.score;
+			results[teamTwo.team].gd += teamTwo.score - teamOne.score;
+
+			if (teamOne.score === teamTwo.score) {
+				results[teamOne.team].score += 1;
+				results[teamTwo.team].score += 1;
+			}
+			else if (teamOne.score > teamTwo.score) {
+				results[teamOne.team].score += 3;
+			} 
+			else if (teamTwo.score > teamOne.score) {
+				results[teamTwo.team].score += 3;
+			}
 		};
 		return results;
 	};
@@ -81,12 +72,17 @@ var SoccerLeague = function() {
 	// sorts the scores into descending order in an array
 	this.sortingScores = function(resultsObject) {
 		for (var team in resultsObject) {
-			sortable.push([team, resultsObject[team]]);
+			sortable.push([team, resultsObject[team].score, resultsObject[team].gd]);
 		};
 
 		sortable.sort(function(a, b) {
 		    return b[1] - a[1];
 		});
+	
+		sortable.sort(function(a, b) {
+		    return b[2] - a[2];
+		});
+		console.log(sortable);
 		return sortable;
 	};
 
@@ -97,23 +93,20 @@ var SoccerLeague = function() {
 		// and skip the next number on the list 
 		let map = sortedResults.reduce((accumulator, element) => {
 			if(accumulator.length === 0) {
-		  	accumulator.push({rank: 0, team: element[0], score: element[1]});
+		  	accumulator.push({rank: 0, team: element[0], score: element[1], gd: element[2]});
 		 } else {
 		  	const lastElem = accumulator[accumulator.length - 1]; 
-		    const nextRank = (lastElem.score == element[1]) ? lastElem.rank : accumulator.length;
-		  	accumulator.push({rank: nextRank, team: element[0], score: element[1]});
+		    const nextRank = (lastElem.score == element[1] && lastElem.gd == element[2]) ? lastElem.rank : accumulator.length;
+		  	accumulator.push({rank: nextRank, team: element[0], score: element[1],  gd: element[2]});
 		  }
 	  	return accumulator;
 		}, []);
 		var output = [];
-		console.log("This is what's given after the reduce function", map);
 
 		map.forEach((elem, i) => {
-			const line = elem.rank+1 + ". " + elem.team.slice(0, -1) + ", " + elem.score + ((elem.score !== 1) ? " pts" : " pt") ;
+			const line = elem.rank+1 + ". " + elem.team.slice(0, -1) + ", " + elem.score + ((elem.score !== 1) ? " pts, GD: " + elem.gd : " pt, GD: " + elem.gd) ;
 			output.push(line);
 		});
-
-		console.log('This is the output pre-alphabetization: ', output);
 
 		for (var i = 0; i < output.length-1; i++) {
 	      if (output[i].charAt(0) === output[i+1].charAt(0)) {
@@ -126,7 +119,6 @@ var SoccerLeague = function() {
 	      }
 	    };
 	    output = output.join('\n')
-	    console.log('This is post-alphabetization: ', output)
 		return output;
 	};
 };
